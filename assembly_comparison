@@ -42,7 +42,7 @@ dnadiff -d cshl.delta -p cshl.dnadiff
 
 # Using nucmer (inhouse):
 ```bash
-nucmer -l 100 -c 500  /share/dennislab/databases/assemblies/MichOch1.0/soft_masked/Microtus_ochrogaster.MicOch1.0.dna_sm.fa /share/dennislab/projects/vole/denovo_asm/03_prairie_hifiasm/Vole_Liver_DNA_880001.asm.hic.hap1.p_ctg.fa --prefix=inhouse
+/share/dennislab/users/dcsoto/Miniconda3/envs/assembly/bin/nucmer -l 100 -c 500  /share/dennislab/databases/assemblies/MichOch1.0/soft_masked/Microtus_ochrogaster.MicOch1.0.dna_sm.fa /share/dennislab/projects/vole/denovo_asm/03_prairie_hifiasm/Vole_Liver_DNA_880001.asm.hic.hap1.p_ctg.fa --prefix=inhouse
 dnadiff -d inhouse.delta -p inhouse.dnadiff
 ```
 > Check dnadiff output for 1-to-1 alignments and sequence identity
