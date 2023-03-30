@@ -1,0 +1,48 @@
+# Vole assemblies comparison
+
+cd /share/dennislab/users/ercoale/vole_comparison
+source /share/dennislab/programs/dennis-miniconda/etc/profile.d/conda.sh
+
+## Data
+* Prairie vole reference genome: /share/dennislab/databases/assemblies/MichOch1.0/soft_masked/Microtus_ochrogaster.MicOch1.0.dna_sm.fa.gz
+* Prairie vole CSHL assembly: /share/dennislab/projects/vole/data/prairie/release1.0_Schatzlab/Moch1.0.fasta.gz
+* Meadow vole CSHL assembly: /share/dennislab/projects/vole/data/meadow/release1.0_Schatzlab/Mpen1.0.fasta.gz
+* In house prairie vole draft assembly: /share/dennislab/projects/vole/denovo_asm/03_prairie_hifiasm/Vole_Liver_DNA_880001.asm.hic.hap1.p_ctg.fa
+* In house meadow vole draft assembly: /share/dennislab/projects/vole/denovo_asm/03_meadow_hifiasm/Vole_liver_DNA_880000.asm.hic.hap1.p_ctg.fa
+* In house prairie vole scaffolded assembly: /share/dennislab/projects/vole/denovo_asm/05_prairie_bionano/Solve3.7_out/hybrid_scaffolds/EXP_REFINEFINAL1_bppAdjust_cmap_purged_fa_NGScontigs_HYBRID_SCAFFOLD.fasta
+* In house meadow vole scaffolded assembly: /share/dennislab/projects/vole/denovo_asm/05_meadow_bionano/Solve3.7_out/hybrid_scaffolds/EXP_REFINEFINAL1_bppAdjust_cmap_purged_fa_NGScontigs_HYBRID_SCAFFOLD.fasta
+
+## Comparison
+#Using minimap2 for assembly-to-assembly comparison:
+```bash
+# alignment between same species CSHL
+minimap2 -t10 -x asm5 --cs /share/dennislab/databases/assemblies/MichOch1.0/soft_masked/Microtus_ochrogaster.MicOch1.0.dna_sm.fa.gz /share/dennislab/projects/vole/data/prairie/release1.0_Schatzlab/Moch1.0.fasta.gz > aln_cshl.paf
+minimap2 -t10 -a -x asm5 --cs /share/dennislab/databases/assemblies/MichOch1.0/soft_masked/Microtus_ochrogaster.MicOch1.0.dna_sm.fa.gz /share/dennislab/projects/vole/data/prairie/release1.0_Schatzlab/Moch1.0.fasta.gz > aln_cshl.sam
+# alignment between same species In-house
+minimap2 -t10 -x asm5 --cs /share/dennislab/databases/assemblies/MichOch1.0/soft_masked/Microtus_ochrogaster.MicOch1.0.dna_sm.fa.gz /share/dennislab/projects/vole/denovo_asm/03_prairie_hifiasm/Vole_Liver_DNA_880001.asm.hic.hap1.p_ctg.fa > aln_inhouse.paf
+minimap2 -t10 -a -x asm5 --cs /share/dennislab/databases/assemblies/MichOch1.0/soft_masked/Microtus_ochrogaster.MicOch1.0.dna_sm.fa.gz /share/dennislab/projects/vole/denovo_asm/03_prairie_hifiasm/Vole_Liver_DNA_880001.asm.hic.hap1.p_ctg.fa > aln_inhouse.sam
+```
+```bash
+# 1-to-1 regions for cshl
+sort -k6,6 -k8,8n aln_cshl.paf> aln_cshl.paf_sorted # sort by reference start coordinate
+paftools.js call aln_cshl.paf_sorted > aln_cshl.paf_sorted_var
+cat aln_cshl.paf_sorted_var | grep "^R" | cut -f2-  > aln_cshl.paf_sorted_var_1-to-1
+# 1-to-1 regions for in house
+sort -k6,6 -k8,8n  aln_inhouse.paf >  aln_inhouse.paf_sorted # sort by reference start coordinate
+paftools.js call aln_inhouse.paf_sorted > aln_inhouse.paf_sorted_var
+cat aln_inhouse.paf_sorted_var | grep "^R" | cut -f2-  > aln_inhouse.paf_sorted_var_1-to-1
+```
+# Using nucmer (cshl):
+```bash
+#gunzip -k /share/dennislab/databases/assemblies/MichOch1.0/soft_masked/Microtus_ochrogaster.MicOch1.0.dna_sm.fa.gz
+#gunzip -k /share/dennislab/projects/vole/data/prairie/release1.0_Schatzlab/Moch1.0.fasta.gz
+nucmer -l 100 -c 500  /share/dennislab/databases/assemblies/MichOch1.0/soft_masked/Microtus_ochrogaster.MicOch1.0.dna_sm.fa /share/dennislab/projects/vole/data/prairie/release1.0_Schatzlab/Moch1.0.fasta --prefix=cshl
+dnadiff -d cshl.delta -p cshl.dnadiff
+```
+
+# Using nucmer (inhouse):
+```bash
+nucmer -l 100 -c 500  /share/dennislab/databases/assemblies/MichOch1.0/soft_masked/Microtus_ochrogaster.MicOch1.0.dna_sm.fa /share/dennislab/projects/vole/denovo_asm/03_prairie_hifiasm/Vole_Liver_DNA_880001.asm.hic.hap1.p_ctg.fa --prefix=inhouse
+dnadiff -d inhouse.delta -p inhouse.dnadiff
+```
+> Check dnadiff output for 1-to-1 alignments and sequence identity
