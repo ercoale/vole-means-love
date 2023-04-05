@@ -32,17 +32,17 @@ sort -k6,6 -k8,8n  aln_inhouse.paf >  aln_inhouse.paf_sorted # sort by reference
 paftools.js call aln_inhouse.paf_sorted > aln_inhouse.paf_sorted_var
 cat aln_inhouse.paf_sorted_var | grep "^R" | cut -f2-  > aln_inhouse.paf_sorted_var_1-to-1
 ```
-# Using nucmer (cshl):
+# Using nucmer (cshl_to_ref):
 ```bash
 #gunzip -k /share/dennislab/databases/assemblies/MichOch1.0/soft_masked/Microtus_ochrogaster.MicOch1.0.dna_sm.fa.gz
 #gunzip -k /share/dennislab/projects/vole/data/prairie/release1.0_Schatzlab/Moch1.0.fasta.gz
-nucmer -l 100 -c 500  /share/dennislab/databases/assemblies/MichOch1.0/soft_masked/Microtus_ochrogaster.MicOch1.0.dna_sm.fa /share/dennislab/projects/vole/data/prairie/release1.0_Schatzlab/Moch1.0.fasta --prefix=cshl
-dnadiff -d cshl.delta -p cshl.dnadiff
+/share/dennislab/users/dcsoto/Miniconda3/envs/assembly/bin/nucmer -l 100 -c 500  /share/dennislab/databases/assemblies/MichOch1.0/soft_masked/Microtus_ochrogaster.MicOch1.0.dna_sm.fa /share/dennislab/projects/vole/data/prairie/release1.0_Schatzlab/Moch1.0.fasta --prefix=ref_cshl
+dnadiff -d ref_cshl.delta -p ref_cshl.dnadiff
 ```
 
-# Using nucmer (inhouse):
+# Using nucmer (inhouse_to_ref):
 ```bash
-/share/dennislab/users/dcsoto/Miniconda3/envs/assembly/bin/nucmer -l 100 -c 500  /share/dennislab/databases/assemblies/MichOch1.0/soft_masked/Microtus_ochrogaster.MicOch1.0.dna_sm.fa /share/dennislab/projects/vole/denovo_asm/03_prairie_hifiasm/Vole_Liver_DNA_880001.asm.hic.hap1.p_ctg.fa --prefix=inhouse
-dnadiff -d inhouse.delta -p inhouse.dnadiff
+/share/dennislab/users/dcsoto/Miniconda3/envs/assembly/bin/nucmer -l 100 -c 500  /share/dennislab/databases/assemblies/MichOch1.0/soft_masked/Microtus_ochrogaster.MicOch1.0.dna_sm.fa /share/dennislab/projects/vole/denovo_asm/03_prairie_hifiasm/Vole_Liver_DNA_880001.asm.hic.hap1.p_ctg.fa --prefix=ref_inhouse
+dnadiff -d ref_inhouse.delta -p ref_inhouse.dnadiff
 ```
 > Check dnadiff output for 1-to-1 alignments and sequence identity
