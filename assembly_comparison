@@ -73,3 +73,8 @@ dnadiff -d meadow_cshl_inhousedraft.delta -p meadow_cshl_inhousedraft.dnadiff
 /share/dennislab/users/dcsoto/Miniconda3/envs/assembly/bin/nucmer -l 100 -c 500 /share/dennislab/databases/assemblies/MichOch1.0/soft_masked/Microtus_ochrogaster.MicOch1.0.dna_sm.fa /share/dennislab/projects/vole/denovo_asm/03_meadow_hifiasm/Vole_liver_DNA_880000.asm.hic.hap1.p_ctg.fa --prefix=prairie_ref_meadow_draft
 dnadiff -d prairie_ref_meadow_draft.delta -p prairie_ref_meadow_draft.dnadiff
 ```
+#nucmer [prairie_ref][prairie_scaffold]
+```bash
+/share/dennislab/users/dcsoto/Miniconda3/envs/assembly/bin/nucmer -l 100 -c 500 /share/dennislab/databases/assemblies/MichOch1.0/soft_masked/Microtus_ochrogaster.MicOch1.0.dna_sm.fa /share/dennislab/projects/vole/denovo_asm/05_prairie_bionano/Solve3.7_out/hybrid_scaffolds/EXP_REFINEFINAL1_bppAdjust_cmap_purged_fa_NGScontigs_HYBRID_SCAFFOLD.fasta --prefix=prairie_ref_prairie_scaf
+dnadiff -d prairie_ref_prairie_scaf.delta -p prairie_ref_prairie_scaf.dnadiff
+```
