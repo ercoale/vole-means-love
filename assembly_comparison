@@ -62,7 +62,11 @@ dnadiff -d cshl_ref.delta -p cshl_ref.dnadiff
 /share/dennislab/users/dcsoto/Miniconda3/envs/assembly/bin/nucmer -l 100 -c 500 /share/dennislab/projects/vole/data/prairie/release1.0_Schatzlab/Moch1.0.fasta /share/dennislab/projects/vole/denovo_asm/03_prairie_hifiasm/Vole_Liver_DNA_880001.asm.hic.hap1.p_ctg.fa --prefix=prairie_cshl_inhouse
 dnadiff -d prairie_cshl_inhouse.delta -p prairie_cshl_inhouse.dnadiff
 ```
-
+#nucmer [meadowvole_cshl][meadowvole_scaf]
+```bash
+/share/dennislab/users/dcsoto/Miniconda3/envs/assembly/bin/nucmer -l 100 -c 500 /share/dennislab/projects/vole/data/meadow/release1.0_Schatzlab/Mpen1.0.fasta /share/dennislab/projects/vole/denovo_asm/05_meadow_bionano/Solve3.7_out/hybrid_scaffolds/EXP_REFINEFINAL1_bppAdjust_cmap_purged_fa_NGScontigs_HYBRID_SCAFFOLD.fasta --prefix=meadow_cshl_scaf
+dnadiff -d meadow_cshl_scaf.delta -p meadow_cshl_scaf.dnadiff
+```
 #nucmer [meadowvole_cshl][meadowvole_inhouse_draft]
 ```bash
 /share/dennislab/users/dcsoto/Miniconda3/envs/assembly/bin/nucmer -l 100 -c 500 /share/dennislab/projects/vole/data/meadow/release1.0_Schatzlab/Mpen1.0.fasta /share/dennislab/projects/vole/denovo_asm/03_meadow_hifiasm/Vole_liver_DNA_880000.asm.hic.hap1.p_ctg.fa --prefix=meadow_cshl_inhousedraft
